@@ -1,4 +1,7 @@
 {
+	"[cpp]": {
+		"editor.defaultFormatter": "ms-vscode.cpptools",
+	},
 	"[rust]": {
 		"editor.defaultFormatter": "matklad.rust-analyzer",
 	},
