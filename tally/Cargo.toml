@@ -1,0 +1,12 @@
+[package]
+name = "tally"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cfg-if = "1.0.0"
+dashmap = { version = "4.0.2", optional = true }
+rayon = { version = "1.5.1", optional = true }
+
+[features]
+parallel = ["dashmap", "rayon"]
