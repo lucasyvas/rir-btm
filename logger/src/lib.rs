@@ -1,6 +1,5 @@
 #![forbid(unsafe_code)]
 #![warn(clippy::all)]
-#![cfg_attr(not(debug_assertions), deny(warnings))]
 
 use cfg_if::cfg_if;
 use chrono::Utc;
@@ -26,21 +25,18 @@ fn init() {
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
 extern "C" {
-    #[cfg(target_arch = "wasm32")]
     #[wasm_bindgen(js_namespace = console, js_name = info)]
     fn console_info(s: &str);
 
-    #[cfg(target_arch = "wasm32")]
     #[wasm_bindgen(js_namespace = console, js_name = warn)]
     fn console_warn(s: &str);
 
-    #[cfg(target_arch = "wasm32")]
     #[wasm_bindgen(js_namespace = console, js_name = error)]
     fn console_error(s: &str);
 
-    #[cfg(target_arch = "wasm32")]
     #[wasm_bindgen(js_namespace = console, js_name = debug)]
     fn console_debug(s: &str);
 }

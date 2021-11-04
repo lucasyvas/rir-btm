@@ -2,7 +2,9 @@
 
 if [ "${1}" == "clean" ]; then
     rm -rf target
+    rm -rf lib/target
 else
-    mkdir -p target
+    cd lib && cargo build --release && cd ..
+    mkdir target
     clang++ src/main.cc -o target/math -L lib/target/release -lmath
 fi

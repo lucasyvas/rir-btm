@@ -1,6 +1,5 @@
 #![forbid(unsafe_code)]
 #![warn(clippy::all)]
-#![cfg_attr(not(debug_assertions), deny(warnings))]
 
 use anyhow::Result;
 use cmd_lib::{run_cmd, run_fun};
@@ -16,22 +15,22 @@ struct Env {
 
 #[derive(Debug)]
 struct Image {
-    name: String,
-    tag: String,
-    id: String,
+    _name: String,
+    _tag: String,
+    _id: String,
 }
 
-impl TryFrom<Vec<&str>> for Image {
+impl TryFrom<&[&str]> for Image {
     type Error = &'static str;
 
-    fn try_from(items: Vec<&str>) -> std::result::Result<Self, Self::Error> {
+    fn try_from(items: &[&str]) -> std::result::Result<Self, Self::Error> {
         if items.len() < 3 {
             Err("Image requires at least 3 items to convert from")
         } else {
             Ok(Self {
-                name: items[0].to_string(),
-                tag: items[1].to_string(),
-                id: items[2].to_string(),
+                _name: items[0].to_string(),
+                _tag: items[1].to_string(),
+                _id: items[2].to_string(),
             })
         }
     }
@@ -56,7 +55,7 @@ fn list_images() -> Result<Vec<Image>> {
         .split("\n")
         .collect::<Vec<&str>>()
         .into_iter()
-        .map(|line| Image::try_from(line.split(" ").collect::<Vec<&str>>()).ok())
+        .map(|line| Image::try_from(line.split(" ").collect::<Vec<&str>>().as_slice()).ok())
         .filter_map(|image| image.into())
         .collect::<Vec<Image>>();
 

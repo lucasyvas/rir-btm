@@ -1,6 +1,5 @@
 #![forbid(unsafe_code)]
 #![warn(clippy::all)]
-#![cfg_attr(not(debug_assertions), deny(warnings))]
 
 use cfg_if::cfg_if;
 use std::fs::read_to_string;
