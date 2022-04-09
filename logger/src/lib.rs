@@ -2,7 +2,8 @@
 #![warn(clippy::all)]
 
 use cfg_if::cfg_if;
-use chrono::Utc;
+use instant::SystemTime;
+use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 
 cfg_if! {
     if #[cfg(target_arch = "wasm32")] {
@@ -85,16 +86,25 @@ pub fn debug(message: &str) {
     }
 }
 
-fn format(level: &str, message: &str) -> String {
-    format!(
-        "time={} level={} message={}",
-        Utc::now().to_rfc3339(),
-        level,
-        message
-    )
-}
-
 #[cfg(not(target_arch = "wasm32"))]
 fn log(level: Level, message: &str) {
     log!(level, "{}", format(level.as_str(), message));
+}
+
+fn format(level: &str, message: &str) -> String {
+    format!(
+        "time={} level={level} message={message}",
+        now_utc().format(&Rfc3339).expect("Valid format")
+    )
+}
+
+fn now_utc() -> OffsetDateTime {
+    let unix_nanos: i128 = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .expect("Later than Unix Epoch")
+        .as_nanos()
+        .try_into()
+        .expect("Convertible to signed");
+
+    OffsetDateTime::from_unix_timestamp_nanos(unix_nanos).expect("In range")
 }
