@@ -7,20 +7,19 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-cfg-if = "=1.0.0"
-time = { version = "=0.3.9", features = ["formatting"] }
+cfg-if = "1.0"
+time = { version = "0.3", features = ["formatting"] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-ctor = "=0.1.22"
-dotenv = "=0.15.0"
-instant = "=0.1.12"
-pretty_env_logger = "=0.4.0"
-log = "=0.4.16"
+ctor = "0.2"
+dotenvy = "0.15"
+instant = "0.1"
+pretty_env_logger = "0.4"
+log = "0.4"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-instant = { version = "=0.1.12", features = ["wasm-bindgen"] }
-wasm-bindgen = "=0.2.80"
-wee_alloc = "=0.4.5"
+instant = { version = "0.1", features = ["wasm-bindgen"] }
+wasm-bindgen = "0.2"
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
-wasm-bindgen-test = "=0.3.30"
+wasm-bindgen-test = "0.3"

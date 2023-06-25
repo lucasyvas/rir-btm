@@ -16,7 +16,7 @@ cfg_if! {
 
 fn main() {
     let words = read_to_string("wordlist.txt").unwrap();
-    let words = words.split("\n").collect::<Vec<&str>>();
+    let words = words.trim().split("\n").collect::<Vec<&str>>();
 
     #[cfg(not(feature = "parallel"))]
     let mut word_counts = HashMap::<&str, usize>::new();
@@ -30,7 +30,7 @@ fn main() {
 
     let start = Instant::now();
 
-    iter.for_each(|&word| {
+    iter.for_each(|word| {
         let count = word_counts.get(word).as_deref().unwrap_or(&0) + 1;
         word_counts.insert(word, count);
     });

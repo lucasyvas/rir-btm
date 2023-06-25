@@ -3,7 +3,7 @@
 
 use anyhow::Result;
 use cmd_lib::{run_cmd, run_fun};
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use serde::Deserialize;
 use std::convert::TryFrom;
 

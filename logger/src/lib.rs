@@ -10,7 +10,7 @@ cfg_if! {
         use wasm_bindgen::prelude::*;
     } else {
         use ctor::ctor;
-        use dotenv::dotenv;
+        use dotenvy::dotenv;
         use log::{log, Level};
     }
 }
@@ -21,10 +21,6 @@ fn init() {
     dotenv().ok();
     pretty_env_logger::try_init().ok();
 }
-
-#[cfg(target_arch = "wasm32")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
