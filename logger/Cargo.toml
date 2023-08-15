@@ -14,7 +14,7 @@ time = { version = "0.3", features = ["formatting"] }
 ctor = "0.2"
 dotenvy = "0.15"
 instant = "0.1"
-pretty_env_logger = "0.4"
+pretty_env_logger = "0.5"
 log = "0.4"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
