@@ -3,7 +3,7 @@
 
 use cfg_if::cfg_if;
 use instant::SystemTime;
-use time::{format_description::well_known::Rfc3339, OffsetDateTime};
+use time::{format_description::well_known::Iso8601, OffsetDateTime};
 
 cfg_if! {
     if #[cfg(target_arch = "wasm32")] {
@@ -90,7 +90,7 @@ fn log(level: Level, message: &str) {
 fn format(level: &str, message: &str) -> String {
     format!(
         "time={} level={level} message={message}",
-        now_utc().format(&Rfc3339).expect("Valid format")
+        now_utc().format(&Iso8601::DEFAULT).expect("Valid format")
     )
 }
 
