@@ -1,4 +1,5 @@
 use anyhow::Result;
+use config::Config;
 use dotenvy::dotenv;
 use reqwest::Client;
 use serde::de::DeserializeOwned;
@@ -94,7 +95,10 @@ struct Options {
 async fn main() -> Result<()> {
     dotenv().ok();
 
-    let options = envy::from_env::<Options>()?;
+    let options = Config::builder()
+        .add_source(config::Environment::default())
+        .build()?
+        .try_deserialize::<Options>()?;
 
     let mut client_builder = reqwest::Client::builder().user_agent("reqwest");
 

@@ -3,6 +3,7 @@
 
 use anyhow::Result;
 use cmd_lib::{run_cmd, run_fun};
+use config::Config;
 use dotenvy::dotenv;
 use serde::Deserialize;
 use std::convert::TryFrom;
@@ -39,7 +40,10 @@ impl TryFrom<&[&str]> for Image {
 fn main() -> Result<()> {
     dotenv().ok();
 
-    let Env { image, tag } = envy::from_env()?;
+    let Env { image, tag } = Config::builder()
+        .add_source(config::Environment::default())
+        .build()?
+        .try_deserialize()?;
 
     (run_cmd! {docker pull ${image}})?;
     (run_cmd! {docker tag ${image} ${tag}})?;
