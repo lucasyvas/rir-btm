@@ -1,3 +1,6 @@
+#![forbid(unsafe_code)]
+#![warn(clippy::all)]
+
 use anyhow::Result;
 use config::Config;
 use dotenvy::dotenv;
