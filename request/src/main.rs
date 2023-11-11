@@ -94,7 +94,7 @@ struct Options {
     timeout_seconds: Option<u64>,
 }
 
-#[tokio::main(flavor = "current_thread")]
+#[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
 
