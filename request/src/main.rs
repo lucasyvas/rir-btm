@@ -3,7 +3,6 @@
 
 use anyhow::Result;
 use config::Config;
-use dotenvy::dotenv;
 use reqwest::Client;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
@@ -96,10 +95,8 @@ struct Options {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    dotenv().ok();
-
     let options = Config::builder()
-        .add_source(config::Environment::default())
+        .add_source(config::File::with_name("Config.toml"))
         .build()?
         .try_deserialize::<Options>()?;
 
