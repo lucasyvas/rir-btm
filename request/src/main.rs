@@ -96,7 +96,7 @@ struct Options {
 #[tokio::main]
 async fn main() -> Result<()> {
     let options = Config::builder()
-        .add_source(config::File::with_name("Config.toml"))
+        .add_source(config::File::with_name("config.toml"))
         .build()?
         .try_deserialize::<Options>()?;
 
