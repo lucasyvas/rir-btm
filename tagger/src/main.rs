@@ -45,9 +45,9 @@ fn main() -> Result<()> {
         .build()?
         .try_deserialize()?;
 
-    (run_cmd! {docker pull ${image}})?;
-    (run_cmd! {docker tag ${image} ${tag}})?;
-    (run_cmd! {docker rmi ${image}})?;
+    run_cmd!(docker pull ${image})?;
+    run_cmd!(docker tag ${image} ${tag})?;
+    run_cmd!(docker rmi ${image})?;
 
     println!("{:#?}", list_images()?);
 
@@ -55,7 +55,7 @@ fn main() -> Result<()> {
 }
 
 fn list_images() -> Result<Vec<Image>> {
-    let images = (run_fun! {docker images | tail -n +2 | awk "{ print $1, $2, $3 }"})?
+    let images = run_fun!(docker images | tail -n +2 | awk "{ print $1, $2, $3 }")?
         .split("\n")
         .collect::<Vec<&str>>()
         .into_iter()
