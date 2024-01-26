@@ -19,9 +19,9 @@ fn main() {
     let words = words.trim().split("\n").collect::<Vec<&str>>();
 
     #[cfg(not(feature = "parallel"))]
-    let mut word_counts = HashMap::<&str, usize>::new();
+    let mut word_counts = HashMap::<&str, u32>::new();
     #[cfg(feature = "parallel")]
-    let word_counts = DashMap::<&str, usize>::new();
+    let word_counts = DashMap::<&str, u32>::new();
 
     #[cfg(not(feature = "parallel"))]
     let iter = words.iter();
