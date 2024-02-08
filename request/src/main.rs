@@ -90,7 +90,7 @@ where
 
 #[derive(Deserialize)]
 struct Options {
-    timeout_seconds: Option<u64>,
+    timeout_seconds: Option<u8>,
 }
 
 #[tokio::main]
@@ -103,7 +103,7 @@ async fn main() -> Result<()> {
     let mut client_builder = reqwest::Client::builder().user_agent("reqwest");
 
     if let Some(seconds) = options.timeout_seconds {
-        client_builder = client_builder.timeout(Duration::new(seconds, 0));
+        client_builder = client_builder.timeout(Duration::new(seconds as u64, 0));
     }
 
     let client = client_builder.build()?;
