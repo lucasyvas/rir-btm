@@ -95,12 +95,12 @@ struct Options {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let options = Config::builder()
+    let options: Options = Config::builder()
         .add_source(config::File::with_name("config.toml"))
         .build()?
-        .try_deserialize::<Options>()?;
+        .try_deserialize()?;
 
-    let mut client_builder = reqwest::Client::builder().user_agent("reqwest");
+    let mut client_builder = Client::builder().user_agent("reqwest");
 
     if let Some(seconds) = options.timeout_seconds {
         client_builder = client_builder.timeout(Duration::new(seconds as u64, 0));
