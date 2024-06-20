@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-php -d extension=./target/debug/libphp.dylib test.php
+php -d extension=./target/release/libphp.dylib test.php
